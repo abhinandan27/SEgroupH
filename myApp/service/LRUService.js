@@ -18,7 +18,7 @@ exports.update = function(emailId,item,date) {
                 frequeny.lru=datelib.parse(date, 'YYYYMMDD'); 
                 users.items.push(frequeny);
                 
-                lru_collection.insert({
+                lru_collection.insert({ 
                     users,
                 }, function (err, result) {});
 

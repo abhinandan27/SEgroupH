@@ -5,12 +5,18 @@ var Shopping=require('../model/Shopping');
 var Frequeny=require('../service/FrequencyService');
 var Lru= require('../service/LRUService');
 var datelib = require('date-and-time');
+var analysisService=require('../service/AnalysisService')
 
 
 router.post('/addItem', function(req, res) {
 	var db = req.db;
     var emailId = req.body.emailId;
     var date=req.body.date;
+    var workLoad=req.body.workload;
+    var number_of_people=req.body.number_of_people;
+    var season=req.body.season;
+    var week_of_month=req.body.week_of_month;
+    var holidays=req.body.holidays;
     var list=req.body.list;
     var items=req.body.list;
 
@@ -22,6 +28,11 @@ router.post('/addItem', function(req, res) {
         
         var shoppingdata={}
         shoppingdata.date=date;
+        shoppingdata.workload=workload;
+        shoppingdata.number_of_people=number_of_people;
+        shoppingdata.season=season;
+        shoppingdata.week_of_month=week_of_month;
+        shoppingdata.holidays=holidays;
         shoppingdata.list=list;
 
 
@@ -85,6 +96,13 @@ router.post('/addItem', function(req, res) {
         Frequeny.update(emailId,list[itemNo],date);
     }
 });
+
+
+router.get('/getList', function(req, res) {
+    analysisService.update();
+    res.send("Done");
+});
+
 
 module.exports = router;
 
