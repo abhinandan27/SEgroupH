@@ -2,7 +2,7 @@ var DBService = require('../service/DBService');
 var datelib= require('date-and-time');
 var db = DBService.db;
 
-exports.update = function(emailId,list,date) {
+exports.update = function(emailId,item,date) {
 
 	var lru_collection = db.get('lru_collection');
         var query={"users.emailId":emailId};
@@ -10,20 +10,13 @@ exports.update = function(emailId,list,date) {
         lru_collection.find(query, {},function(e,results){
             if(results.length==0)
             {
-                var itemArr=list.filter(function(elem, pos) {
-                    return list.indexOf(elem) == pos; });
                 users={}
                 users.emailId=emailId;
                 users.items=[];
-                
-
-                for (var i = itemArr.length - 1; i >= 0; i--) {
-                    var frequeny={};
-                    frequeny.item=itemArr[i];
-                    frequeny.lru=datelib.parse(date, 'YYYYMMDD'); 
-                    users.items.push(frequeny);
-                }
-
+                var frequeny={};
+                frequeny.item=item;
+                frequeny.lru=datelib.parse(date, 'YYYYMMDD'); 
+                users.items.push(frequeny);
                 
                 lru_collection.insert({
                     users,
@@ -34,19 +27,19 @@ exports.update = function(emailId,list,date) {
             {
                 alreadyList=[]
                 itemsNameList=[]
-                var itemArr=list.filter(function(elem, pos) {
-                    return list.indexOf(elem) == pos; });
 
                 var itemsList=results[0].users.items;
                 for (var i =0;i<itemsList.length ; i++) {
 	                itemsNameList.push(itemsList[i].item);
 	            }
                 var newItemList=[]
+                var found=false;
 
                 for (var j = itemsNameList.length - 1; j >= 0; j--) {
 
-                    if(itemArr.indexOf(itemsNameList[j])>-1)
+                    if(itemsNameList[j]==item)
                     {
+                        found=true;
                         var frequeny={};
                         frequeny.item=itemsList[j].item;
                         console.log(frequeny.item);
@@ -62,16 +55,14 @@ exports.update = function(emailId,list,date) {
                     }
                 }
 
-                for (var j = itemArr.length - 1; j >= 0; j--) {
-
-                    if(itemsNameList.indexOf(itemArr[j])<0)
-                    {
-                        var frequeny={};
-                        frequeny.item=itemArr[j];
-                        frequeny.lru= datelib.parse(date, 'YYYYMMDD'); 
-                        newItemList.push(frequeny);
-                    }
+                if(found)
+                {
+                    var frequeny={};
+                    frequeny.item=item;
+                    frequeny.lru= datelib.parse(date, 'YYYYMMDD'); 
+                    newItemList.push(frequeny);
                 }
+                
 
                 lru_collection.update(
                     { "users.emailId" : emailId , },

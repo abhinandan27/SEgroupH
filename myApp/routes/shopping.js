@@ -12,6 +12,7 @@ router.post('/addItem', function(req, res) {
     var emailId = req.body.emailId;
     var date=req.body.date;
     var list=req.body.list;
+    var items=req.body.list;
 
 
     var shopping_collection = db.get('shopping_collection');
@@ -76,9 +77,13 @@ router.post('/addItem', function(req, res) {
             //console.log(results);
         }
 
-        Frequeny.update(emailId,list,date);
+        
         res.send("Done");
 	});
+    for(var itemNo =0;itemNo<list.length;itemNo++)
+    {
+        Frequeny.update(emailId,list[itemNo],date);
+    }
 });
 
 module.exports = router;
