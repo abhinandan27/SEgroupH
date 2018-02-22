@@ -12,7 +12,7 @@ router.post('/addItem', function(req, res) {
 	var db = req.db;
     var emailId = req.body.emailId;
     var date=req.body.date;
-    var workLoad=req.body.workload;
+    var workload=req.body.workload;
     var number_of_people=req.body.number_of_people;
     var season=req.body.season;
     var week_of_month=req.body.week_of_month;
@@ -86,20 +86,26 @@ router.post('/addItem', function(req, res) {
 
             var shoppingData=results.data;
             //console.log(results);
+
         }
 
-        
-        res.send("Done");
 	});
+    
     for(var itemNo =0;itemNo<list.length;itemNo++)
     {
-        Frequeny.update(emailId,list[itemNo],date);
+        Frequeny.update(emailId,list[itemNo],date,workload,number_of_people,season,week_of_month,holidays);
     }
+
+
+    res.send("Done");
 });
 
 
 router.get('/getList', function(req, res) {
-    analysisService.update();
+    var emailId=req.query.emailId;
+    var item=req.query.item;
+    console.log(emailId);
+    analysisService.update(emailId,item);
     res.send("Done");
 });
 
