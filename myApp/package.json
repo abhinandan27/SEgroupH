@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "~1.18.2",
+    "brain.js": "^1.0.5",
     "cookie-parser": "~1.4.3",
     "date-and-time": "^0.6.2",
     "debug": "~2.6.9",
@@ -19,6 +20,7 @@
     "mongodb": "^3.0.2",
     "monk": "^6.0.5",
     "morgan": "~1.9.0",
+    "node-neural-network": "^1.0.3",
     "serve-favicon": "~2.4.5",
     "stylus": "0.54.5",
     "sylvester": "0.0.21"

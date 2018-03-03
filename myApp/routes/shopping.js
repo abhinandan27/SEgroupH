@@ -105,7 +105,7 @@ router.get('/getList', function(req, res) {
     var emailId=req.query.emailId;
     var item=req.query.item;
     console.log(emailId);
-    analysisService.update(emailId,item);
+    analysisService.updateNN(emailId,item);
     res.send("Done");
 });
 
