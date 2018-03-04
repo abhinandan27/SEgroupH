@@ -3,7 +3,7 @@ var datelib= require('date-and-time');
 var db = DBService.db;
 var brain=require('brain.js');
 
-exports.update = function(emailId,item) {
+exports.update = function(emailId,item,date) {
 
     var frequency_collection=db.get('frequency_collection');
     var query={"users.emailId":emailId};
@@ -92,7 +92,7 @@ exports.update = function(emailId,item) {
 };
 
 
-exports.updateNN = function(emailId,item) {
+exports.updateNN = function(emailId,item,date) {
 
     var frequency_collection=db.get('frequency_collection');
     var query={"users.emailId":emailId};
@@ -162,9 +162,35 @@ exports.updateNN = function(emailId,item) {
                 // this line is not needed in the browser 
                 var net = new brain.recurrent.RNN();
  
-                net.train(data);
-                 
-                var output =net.run(['high', '4', 'summer', '3', 'yes', 'null']);  // [1]
+                
+                HardCodeInput=[
+                                {  input: [ 'low', '4', 'summer', '4', 'yes', 'milk' ],output: [ 6 ] },
+                                {  input: [ 'low', '4', 'summer', '4', 'yes', 'milk' ],output: [ 6 ] },
+                                {  input: [ 'low', '4', 'summer', '3', 'yes', 'milk' ],output: [ 6 ] },
+                                {  input: [ 'low', '4', 'summer', '3', 'yes', 'milk' ],output: [ 5 ] },
+                                {  input: [ 'medium', '4', 'summer', '4', 'no', 'milk' ],output: [ 5 ] },
+                                {  input: [ 'medium', '4', 'summer', '5', 'no', 'milk' ],output: [ 5 ] },
+                                {  input: [ 'medium', '4', 'fall', '', 'no', 'milk' ],output: [ 5 ] },
+                                {  input: [ 'medium', '4', 'fall', '2', 'no', 'milk' ],output: [ 5 ] },
+                                {  input: [ 'medium', '4', 'fall', '4', 'no', 'milk' ],output: [ 5 ] },
+                                {  input: [ 'medium', '4', 'fall', '3', 'no', 'milk' ],output: [ 5 ] },
+                                {  input: [ 'medium', '4', 'fall', '3', 'no', 'milk' ],output: [ 4 ] },
+                                {  input: [ 'heavy', '4', 'fall', '4', 'no', 'milk' ],output: [ 4 ] },
+                                {  input: [ 'heavy', '4', 'fall', '1', 'no', 'milk' ],output: [ 4 ] },
+                                {  input: [ 'low', '4', 'fall', '5', 'yes', 'milk' ],output: [ 100 ] },
+                                {  input: [ 'low', '4', 'fall', '2', 'no', 'milk' ],output: [ 6 ] },
+                                {  input: [ 'medium', '4', 'fall', '2', 'no', 'milk' ],output: [ 5 ] }
+
+                                ]
+
+                console.log(net.train(HardCodeInput),{
+                      errorThresh: 0.05,  // error threshold to reach
+                      iterations: 50,   // maximum training iterations
+                      log: true,           // console.log() progress periodically
+                      logPeriod: 10,       // number of iterations between logging
+                      learningRate: 0.4   // learning rate
+                    });
+                var output =net.run(['medium', '4', 'fall', '3', 'yes', 'milk']);  // [1]
 
                 console.log(output);
 

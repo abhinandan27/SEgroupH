@@ -1,6 +1,7 @@
 var DBService = require('../service/DBService');
 var datelib= require('date-and-time');
 var Lru=require('../service/LRUService');
+var analysisService=require('../service/AnalysisService')
 var db = DBService.db;
 
 exports.update = function(emailId,item,date,workload,number_of_people,season,week_of_month,holidays) {
@@ -41,6 +42,7 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
 
             frequency_collection.insert({users}, function (err, result) {
                 console.log("Added");
+                analysisService.updateNN(emailId,item,date);
                 console.log(item);});
 
         }
@@ -129,6 +131,7 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
                     { $set: { "users.items": items } },
                     function(err, results) {
                         console.log("Frequency Update done:"+results);
+                        analysisService.updateNN(emailId,item,date);
                 });
             });
             /*if(found)
