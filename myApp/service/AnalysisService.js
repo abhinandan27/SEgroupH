@@ -5,6 +5,7 @@ var brain=require('brain.js');
 
 exports.update = function(emailId,item,date) {
 
+
     var frequency_collection=db.get('frequency_collection');
     var query={"users.emailId":emailId};
     var data=[];
@@ -93,7 +94,7 @@ exports.update = function(emailId,item,date) {
 
 
 exports.updateNN = function(emailId,item,date) {
-
+    console.log("ANalysis");
     var frequency_collection=db.get('frequency_collection');
     var query={"users.emailId":emailId};
     var data=[];
@@ -181,15 +182,9 @@ exports.updateNN = function(emailId,item,date) {
                                 {  input: [ 'low', '4', 'fall', '2', 'no', 'milk' ],output: [ 6 ] },
                                 {  input: [ 'medium', '4', 'fall', '2', 'no', 'milk' ],output: [ 5 ] }
 
-                                ]
+                                ];
 
-                console.log(net.train(HardCodeInput),{
-                      errorThresh: 0.05,  // error threshold to reach
-                      iterations: 50,   // maximum training iterations
-                      log: true,           // console.log() progress periodically
-                      logPeriod: 10,       // number of iterations between logging
-                      learningRate: 0.4   // learning rate
-                    });
+                net.train(HardCodeInput);
                 var output =net.run(['medium', '4', 'fall', '3', 'yes', 'milk']);  // [1]
 
                 console.log(output);

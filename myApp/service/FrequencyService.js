@@ -21,6 +21,7 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
     {
         if(results.length==0)
         {
+            console.log("A");
             var shoppingdata={}
             shoppingdata.date=datelib.parse(date,"YYYYMMDD");
             shoppingdata.workload=workload;
@@ -48,6 +49,7 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
         }
         else
         {
+            console.log("B");
             console.log("FS: User present!");
             var frequency_object=results[0]
             var frequency_object_itemList=frequency_object.users.items
@@ -68,6 +70,7 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
 
                 if(newresults.length>0)
                 {
+                    console.log("C");
                     var olddate;
                     for(var i=0;i<newresults[0].users.items.length;i++)
                     {
@@ -112,6 +115,7 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
                 }
                 else
                 {
+                    console.log("D");
                     console.log("LRU not found");
                     var new_item={}
                     new_item.item=item;

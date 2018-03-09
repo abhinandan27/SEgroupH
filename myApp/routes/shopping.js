@@ -93,6 +93,7 @@ router.post('/addItem', function(req, res) {
     
     for(var itemNo =0;itemNo<list.length;itemNo++)
     {
+        console.log("hello")
         Frequeny.update(emailId,list[itemNo],date,workload,number_of_people,season,week_of_month,holidays);
     }
 
