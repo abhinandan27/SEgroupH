@@ -5,6 +5,7 @@ var Shopping=require('../model/Shopping');
 var Frequeny=require('../service/FrequencyService');
 var Lru= require('../service/LRUService');
 var datelib = require('date-and-time');
+
 var analysisService=require('../service/AnalysisService')
 
 
@@ -20,6 +21,7 @@ router.post('/addItem', function(req, res) {
     var list=req.body.list;
     var items=req.body.list;
 
+    //list=JSON.parse(list);
 
     var shopping_collection = db.get('shopping_collection');
     var query={"shopping.emailId":emailId};
