@@ -11,6 +11,9 @@ var user= require('./routes/user');
 var shopping= require('./routes/shopping');
 var index = require('./routes/index');
 
+
+
+
 var DBService = require('./service/DBService');
 
 var db = DBService.db;

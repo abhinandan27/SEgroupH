@@ -19,7 +19,11 @@ router.post('/addItem', function(req, res) {
     var holidays=req.body.holidays;
     var list=req.body.list;
     var items=req.body.list;
-
+    
+    //Prashant
+    list=JSON.parse(list);
+    
+   
 
     var shopping_collection = db.get('shopping_collection');
     var query={"shopping.emailId":emailId};
@@ -35,7 +39,7 @@ router.post('/addItem', function(req, res) {
         shoppingdata.holidays=holidays;
         shoppingdata.list=list;
 
-
+        
 
         if(results.length==0)
         {
@@ -68,8 +72,11 @@ router.post('/addItem', function(req, res) {
                     newData.push(results[0].shopping.data[i]);
                 }
             }
+
+            
             for(var i=0;i<alreadyList.length;i++)
             {
+                
                 shoppingdata.list.push(alreadyList[i]);
             }
             newData.push(shoppingdata);
@@ -101,11 +108,13 @@ router.post('/addItem', function(req, res) {
 });
 
 
+
 router.get('/getList', function(req, res) {
     var emailId=req.query.emailId;
     var item=req.query.item;
     console.log(emailId);
-    analysisService.updateNN(emailId,item);
+    //analysisService.updateNN(emailId,item);
+    console.log("call getItems from List Instead of analysis");
     res.send("Done");
 });
 

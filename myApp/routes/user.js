@@ -38,5 +38,39 @@ router.post('/addUser', function(req, res) {
 
 });
 
+//prashant
+router.get('/login', function(req, res) {
+	var db = req.db;
+	//var user=User.create();
+	
+    var emailId = req.query.emailId;
+    var password = req.query.password;
+
+    
+    
+    var collection = db.get('user_collection');
+    
+    //Check if email ID already exists
+    collection.find({ "user.emailId" : emailId }, {}, function(e,results){
+        
+        if(results.length !== 0)
+            {
+                //console.log(password+"   "+results[0].user.password);
+                if(password==results[0].user.password)
+                    res.status(201).send("Allow login");
+                    else{
+                        res.status(401).send("Invalid Password");
+                 }
+            }
+        else
+        {
+            res.status(401).send("User not found");
+        }
+    });
+    
+
+});
+
+
 module.exports = router;
 
