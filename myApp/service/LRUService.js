@@ -10,8 +10,8 @@ exports.update = function(emailId,item,date) {
     lru_collection.find(query, {},function(e,results){
         if(results.length==0)
         {
-            console.log("New User");
-            console.log(item);
+            //console.log("New User");
+            //console.log(item);
             users={}
             users.emailId=emailId;
             users.items=[];
@@ -27,8 +27,8 @@ exports.update = function(emailId,item,date) {
         }
         else
         {
-            console.log("User Found");
-            console.log(item);
+            //console.log("User Found");
+            //console.log(item);
             alreadyList=[]
             itemsNameList=[]
 
@@ -46,13 +46,13 @@ exports.update = function(emailId,item,date) {
                     found=true;
                     var frequeny={};
                     frequeny.item=itemsList[j].item;
-                    console.log(frequeny.item);
+                    //console.log(frequeny.item);
                     frequeny.lru= datelib.parse(date, 'YYYYMMDD'); 
                     newItemList.push(frequeny);
                 }
                 else
                 {
-                    console.log("Item not Present");
+                    //console.log("Item not Present");
                     var frequeny={};
                     frequeny.item=itemsList[j].item;
                     frequeny.lru= itemsList[j].lru;
@@ -62,7 +62,7 @@ exports.update = function(emailId,item,date) {
 
             if(!found)
             {
-                console.log("Item Present");
+                //console.log("Item Present");
                 var frequeny={};
                 frequeny.item=item;
                 frequeny.lru= datelib.parse(date, 'YYYYMMDD'); 
@@ -74,7 +74,7 @@ exports.update = function(emailId,item,date) {
                 { "users.emailId" : emailId , },
                     { $set: { "users.items": newItemList } },
                     function(err, results) {
-                        console.log("Update done:"+results);
+                        //console.log("Update done:"+results);
                 });
 
         }

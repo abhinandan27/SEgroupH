@@ -14,14 +14,14 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
     var query={"users.emailId":emailId};
 
     
-    console.log(item);
+    //console.log(item);
     var frequency_collection = db.get('frequency_collection');
     var query1={"users.emailId":emailId};
     frequency_collection.find(query1, {},function(e,results)
     {
         if(results.length==0)
         {
-            console.log("A");
+            //console.log("A");
             var shoppingdata={}
             shoppingdata.date=datelib.parse(date,"YYYYMMDD");
             shoppingdata.workload=workload;
@@ -42,15 +42,16 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
             users.items.push(firstItem)
 
             frequency_collection.insert({users}, function (err, result) {
-                console.log("Added");
-                analysisService.updateNN(emailId,item,date);
-                console.log(item);});
+                //console.log("Added");
+                analysisService.updateItem(emailId,item,date,workload,number_of_people,season,week_of_month,holidays);
+                //console.log(item);
+            });
 
         }
         else
         {
-            console.log("B");
-            console.log("FS: User present!");
+            //console.log("B");
+            //console.log("FS: User present!");
             var frequency_object=results[0]
             var frequency_object_itemList=frequency_object.users.items
             items=[]
@@ -70,14 +71,14 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
 
                 if(newresults.length>0)
                 {
-                    console.log("C");
+                    //console.log("C");
                     var olddate;
                     for(var i=0;i<newresults[0].users.items.length;i++)
                     {
                         if(newresults[0].users.items[i].item==item)
                             olddate=newresults[0].users.items[i].lru;
                     }
-                    console.log("LRU found");
+                    //console.log("LRU found");
                     for(var i=0;i<frequency_object_itemList.length;i++)
                     {
                         if(frequency_object_itemList[i].item==item)
@@ -115,8 +116,8 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
                 }
                 else
                 {
-                    console.log("D");
-                    console.log("LRU not found");
+                    //console.log("D");
+                    //console.log("LRU not found");
                     var new_item={}
                     new_item.item=item;
                     new_item.dates=[];
@@ -134,46 +135,11 @@ exports.update = function(emailId,item,date,workload,number_of_people,season,wee
                 { "users.emailId" : emailId , },
                     { $set: { "users.items": items } },
                     function(err, results) {
-                        console.log("Frequency Update done:"+results);
-                        analysisService.updateNN(emailId,item,date);
+                        //console.log("Frequency Update done:"+results);
+                        analysisService.updateItem(emailId,item,date,workload,number_of_people,season,week_of_month,holidays);
                 });
             });
-            /*if(found)
-            {
-                //console.log("Item found!");
-                var new_item={}
-                new_item.item=item_already_present.item;
-                new_item.dates=item_already_present.dates;
-                new_item.dates.push(datelib.parse(date,"YYYYMMDD"));
-
-
-                for(var i=0;i<frequency_object_itemList.length;i++)
-                {
-                    if(frequency_object_itemList[i].item!=list)
-                    {
-                        items.push(frequency_object_itemList[i]);
-                    }
-                }
-
-                items.push(new_item);
-            }
-            else
-            {
-                //console.log("Item not found!");
-                var new_item={}
-                new_item.item=list;
-                new_item.dates=[];
-                new_item.dates.push(datelib.parse(date,"YYYYMMDD"));
-
-                for(var i=0;i<frequency_object_itemList.length;i++)
-                {
-                    items.push(frequency_object_itemList[i]);
-                }
-
-                items.push(new_item);
-            }*/
         }
-
     Lru.update(emailId,item,date);
     });    
 } 
