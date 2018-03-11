@@ -82,7 +82,7 @@ router.post('/addItem', function(req, res) {
                         { "shopping.emailId" : emailId , },
                         { $set: { "shopping.data": newData } },
                         function(err, results) {
-                            console.log("Update done:"+results);
+                            //console.log("Update done:"+results);
                         });
 
 
@@ -95,7 +95,7 @@ router.post('/addItem', function(req, res) {
     
     for(var itemNo =0;itemNo<list.length;itemNo++)
     {
-        console.log("hello")
+        //console.log("hello")
         Frequeny.update(emailId,list[itemNo],date,workload,number_of_people,season,week_of_month,holidays);
     }
 
@@ -106,10 +106,31 @@ router.post('/addItem', function(req, res) {
 
 router.get('/getList', function(req, res) {
     var emailId=req.query.emailId;
-    var item=req.query.item;
     console.log(emailId);
-    analysisService.updateNN(emailId,item);
-    res.send("Done");
+    var dateString=req.query.date;
+    var date=datelib.parse(dateString,"YYYYMMDD");
+    var db = req.db;
+    var end_date_collection = db.get('end_date_collection');
+    var query={"users.emailId":emailId};
+    end_date_collection.find(query, {},function(e,results){
+        if(results.length>0)
+        {
+            var items=[]
+
+            for (var i = 0; i < results[0].users.items.length; i++) {
+                console.log(results[0].users.items.lru + " "+ date);
+                if(datelib.subtract(results[0].users.items[i].lru, date).toHours() <0  )
+                {
+                    items.push(results[0].users.items[i].item);
+                }
+            }
+            res.send(items);
+        }   
+        else
+        {
+            res.send("No data found");
+        }
+    });
 });
 
 
