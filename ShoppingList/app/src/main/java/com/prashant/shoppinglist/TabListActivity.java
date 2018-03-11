@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,13 +51,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -79,6 +84,7 @@ public class TabListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_list);
 
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -93,7 +99,7 @@ public class TabListActivity extends AppCompatActivity {
         //second tab will open
         mViewPager.setCurrentItem(1);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(Color.GREEN);
         tabLayout.setSelectedTabIndicatorHeight(10);
         tabLayout.setupWithViewPager(mViewPager);
@@ -102,35 +108,82 @@ public class TabListActivity extends AppCompatActivity {
 
 
        // Toast.makeText(getApplicationContext(),tabLayout.getSelectedTabPosition(),Toast.LENGTH_LONG).show();
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
 
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
+            @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 //Toast.makeText(getApplicationContext(),tab.getText(),Toast.LENGTH_LONG).show();
+                disableProgressBar();
+                disableListProgressBar();
                 if(tab.getText().equals("Smart List"))
-                    setDefaultTabWithSmartList();
-                Button upload=(Button)findViewById(R.id.uploadItems);
-                upload.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                            uploadItems(v);
-                    }
-                });
+                {
+                    enableListProgressBar();
+                    setDefaultTabWithSmartList();}
+                else
+                {
+                    /*
+                   //final ProgressBar uploadProgressBar=(ProgressBar) findViewById(R.id.upload_progressBar) ;
+                    Button upload=(Button)findViewById(R.id.uploadItems);
+                    upload.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+
+                            enableProgressBar();
+                            uploadItems();
+
+
+                        }
+                    });
+                    */
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                //Toast.makeText(getApplicationContext(),tab.getText(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),"Unselected",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                //Toast.makeText(getApplicationContext(),tab.getText(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),"Resected",Toast.LENGTH_LONG).show();
             }
+
+
         });
 
 
 }
+
+    public void enableListProgressBar()
+    {
+        ProgressBar uploadProgressBar=(ProgressBar)findViewById(R.id.smartListProgress);
+        uploadProgressBar.setVisibility(View.VISIBLE);
+    }
+
+
+    public void disableListProgressBar()
+    {
+        ProgressBar uploadProgressBar=(ProgressBar)findViewById(R.id.smartListProgress);
+        uploadProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    //methods to enable and disable progress bar
+    public void enableProgressBar()
+    {
+        ProgressBar uploadProgressBar=(ProgressBar)findViewById(R.id.upload_progressBar);
+        uploadProgressBar.setVisibility(View.VISIBLE);
+    }
+
+
+    public void disableProgressBar()
+    {
+        ProgressBar uploadProgressBar=(ProgressBar)findViewById(R.id.upload_progressBar);
+        uploadProgressBar.setVisibility(View.INVISIBLE);
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -139,8 +192,9 @@ public class TabListActivity extends AppCompatActivity {
         return true;
     }
 
-    public void uploadItems(View v)
+    public void uploadItems()
     {
+        enableProgressBar();
         EditText item1,quantity1,price1,date1;
         EditText item2,quantity2,price2,date2;
         EditText item3,quantity3,price3,date3;
@@ -181,42 +235,81 @@ public class TabListActivity extends AppCompatActivity {
         price6=(EditText)findViewById(R.id.price6);
         date6=(EditText)findViewById(R.id.date6);
 
-        //uploading data on the server
+        final ArrayList<String> list=new ArrayList<String>();
 
-        //sending data to server
-        //change url
+        if(item1.getText()!=null && item1.getText().length()>0)
+            list.add(item1.getText().toString());
+        if(item2.getText()!=null && item2.getText().length()>0)
+            list.add(item2.getText().toString());
+        if(item3.getText()!=null  && item3.getText().length()>0)
+            list.add(item3.getText().toString());
+        if(item4.getText()!=null  && item4.getText().length()>0)
+            list.add(item4.getText().toString());
+        if(item5.getText()!=null && item5.getText().length()>0)
+            list.add(item5.getText().toString());
+        if(item6.getText()!= null && item6.getText().length()>0)
+            list.add(item6.getText().toString());
 
-        /*
-        String url="http://192.168.0.15:3000/Users/addUser";
 
-
-        StringRequest req=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-
+        date1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-
+            public void onClick(View v) {
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
-                error.printStackTrace();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<>();
+        });
 
-                return params;
 
-            }
-        };
-        //check response
+        //json list
+        final String json = new Gson().toJson(list);
+        if(list.size()!=0)
+        {;
 
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(req);
-        */
+            String url="http://"+Server.serverAddress+"/Shopping/addItem";
+
+
+            StringRequest req=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
+
+                @Override
+                public void onResponse(String response) {
+                   // Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                    disableProgressBar();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    disableProgressBar();
+                    Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                    error.printStackTrace();
+
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params=new HashMap<>();
+                    Bundle b=getIntent().getExtras();
+                    SimpleDateFormat sdf=new SimpleDateFormat("YYYYMMdd");
+                    params.put("emailId",b.getString("emailId"));
+                    params.put("date",sdf.format(new Date()));
+                    params.put("workload",b.getString("workload"));
+                    params.put("number_of_people",String.valueOf(b.getInt("number_of_people")));
+                    params.put("season",b.getString("season"));
+                    params.put("week_of_month",String.valueOf(b.getInt("week_of_month")));
+                    params.put("holidays",b.getString("holidays"));
+                    params.put("list",json);
+                   // Toast.makeText(getApplicationContext(),params.get("list"),Toast.LENGTH_LONG).show();
+                    return params;
+
+                }
+            };
+            //check response
+
+            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+            queue.add(req);
+
+        list.clear();}
+
+
         //once data is sent
         //we clear every field
 
@@ -256,14 +349,98 @@ public class TabListActivity extends AppCompatActivity {
 
 
     }
+
+    //setting date
+    private void processDate() {
+        Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_LONG).show();
+    }
+
+    //list progress bar
     public void setDefaultTabWithSmartList()
+    {   enableProgressBar();
+        //get ietms from from server
+        Bundle b=getIntent().getExtras();
+        String user=b.getString("emailId");
+        String nextDate="20180712";
+        final String url="http://"+Server.serverAddress+"/Shopping/getList?emailId="+user+"date="+nextDate;
+
+
+        StringRequest req=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                //Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+
+                setItems(response);
+                disableListProgressBar();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                disableListProgressBar();
+                Toast.makeText(getApplicationContext(),"Please try again",Toast.LENGTH_LONG).show();
+
+                error.printStackTrace();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+
+
+                return params;
+
+            }
+        };
+        //check response
+
+        RequestQueue queue=Volley.newRequestQueue(getApplicationContext());
+        queue.add(req);
+
+
+
+
+
+
+
+
+
+    }
+
+    //setting items in a list
+    public void setItems(String response)
     {
-        //get ietms from list
-        //for now I am taking few items
-        String []items={"milk","Biscuits","Meat","Chicken"};
+        //parse response and get items
+        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+        //ArrayList<String> temp=new Gson().fromJson(response,ArrayList.class);
+        JSONArray array;
+        try {
+             array=new JSONArray(response);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        ArrayList<String> data=new ArrayList<String>();
+        data.add("Banana");
+        data.add("Carrots");
+        data.add("Ice cream");
+        data.add("Chicken");
+        data.add("Salt");
+        data.add("Ginger");
+
+        String items[]=new String[data.size()];
+        int index=0;
+        for(String s:data)
+            items[index++]=s;
+
         ListAdapter itemsAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items);
         ListView listview=(ListView)findViewById(R.id.item_list_view);
         listview.setAdapter(itemsAdapter);
+
     }
 
     //responding to menu items
@@ -272,6 +449,11 @@ public class TabListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.refresh:
+                TabLayout tb=(TabLayout)findViewById(R.id.tabs);
+                if(tb.getSelectedTabPosition()!=1)
+                    setDefaultTabWithSmartList();
+                return true;
             case R.id.clear :
                 //request server to erase data
                return true;

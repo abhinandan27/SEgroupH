@@ -15,17 +15,20 @@
         android:layout_height="448dp">
 
 
-
-
         <GridLayout
             android:id="@+id/grid"
             android:layout_width="match_parent"
             android:layout_height="460dp"
-            android:columnCount="4">
+            android:layout_margin="0dp"
+            android:layout_marginBottom="0dp"
+
+            android:columnCount="4"
+            android:isScrollContainer="true"
+            android:scrollbars="vertical">
 
             <TextView
                 android:id="@+id/Items"
-                android:layout_width="67dp"
+                android:layout_width="70dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -46,14 +49,14 @@
                 android:paddingTop="10dp"
                 android:text="Items"
                 android:textAlignment="center"
-                android:textSize="12dp"
                 android:textAllCaps="true"
                 android:textColor="#000000"
-                android:textStyle="bold|italic"/>
+                android:textSize="12dp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/quantity"
-                android:layout_width="67dp"
+                android:layout_width="50dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -75,14 +78,14 @@
                 android:paddingTop="10dp"
                 android:text="Qnty"
                 android:textAlignment="center"
-                android:textSize="12dp"
                 android:textAllCaps="true"
                 android:textColor="#000000"
-                android:textStyle="bold|italic"/>
+                android:textSize="12dp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/price"
-                android:layout_width="67dp"
+                android:layout_width="50dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -104,14 +107,14 @@
                 android:paddingTop="10dp"
                 android:text="Price"
                 android:textAlignment="center"
-                android:textSize="12dp"
                 android:textAllCaps="true"
                 android:textColor="#000000"
-                android:textStyle="bold|italic"/>
+                android:textSize="12dp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -133,16 +136,17 @@
                 android:paddingTop="10dp"
                 android:text="Date"
                 android:textAlignment="center"
-                android:textSize="12dp"
                 android:textAllCaps="true"
                 android:textColor="#000000"
-                android:textStyle="bold|italic"/>
+                android:textSize="12dp"
+                android:textStyle="bold|italic" />
 
             <!-- First Item -->
             <EditText
                 android:id="@+id/item1"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="46dp"
+
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="10dp"
@@ -151,23 +155,33 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:ellipsize="end"
+                android:hint="item"
+                android:inputType="text"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
 
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="item"
+                android:scrollHorizontally="true"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/quantity1"
-                android:layout_width="wrap_content"
+                android:layout_width="10dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -179,21 +193,27 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
 
+                android:inputType="number"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="quantity"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/price1"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -205,21 +225,26 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
 
+                android:inputType="number"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="price"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/date1"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="7dp"
@@ -231,22 +256,30 @@
                 android:layout_marginTop="7dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="date"
 
+                android:inputType="date"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="date"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <!-- second Item -->
             <EditText
                 android:id="@+id/item2"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -258,21 +291,29 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="item"
 
+
+                android:inputType="text"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="item"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/quantity2"
-                android:layout_width="wrap_content"
+                android:layout_width="10dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -284,7 +325,15 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+
+
+                android:inputType="number"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
+
 
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
@@ -292,13 +341,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="quantity"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/price2"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -310,6 +359,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
 
                 android:paddingBottom="10dp"
@@ -318,13 +373,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="price"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/date2"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -336,21 +391,30 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="date"
 
+                android:clickable="false"
+                android:focusable="false"
+                android:inputType="date"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="date"
                 android:textAlignment="center"
                 android:textSize="12dp" />
             <!-- third Item -->
             <EditText
                 android:id="@+id/item3"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -362,21 +426,27 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="item"
 
+                android:inputType="text"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="item"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/quantity3"
-                android:layout_width="wrap_content"
+                android:layout_width="10dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -388,7 +458,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
+
 
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
@@ -396,13 +473,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="quantity"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/price3"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -414,7 +491,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
+
 
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
@@ -422,13 +506,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="price"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/date3"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -440,21 +524,30 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="date"
 
+                android:clickable="false"
+                android:focusable="false"
+                android:inputType="date"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="date"
                 android:textAlignment="center"
                 android:textSize="12dp" />
             <!-- forth Item -->
             <EditText
                 android:id="@+id/item4"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -466,21 +559,27 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="item"
 
+                android:inputType="text"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="item"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/quantity4"
-                android:layout_width="wrap_content"
+                android:layout_width="10dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -492,7 +591,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
+
 
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
@@ -500,13 +606,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="quantity"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/price4"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -518,6 +624,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
 
                 android:paddingBottom="10dp"
@@ -526,13 +638,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="price"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/date4"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -544,15 +656,23 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="date"
 
+                android:clickable="false"
+                android:focusable="false"
+                android:inputType="date"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="date"
                 android:textAlignment="center"
                 android:textSize="12dp" />
             <!-- fift Item -->
@@ -570,21 +690,27 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="item"
 
+                android:inputType="text"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="item"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/quantity5"
-                android:layout_width="wrap_content"
+                android:layout_width="10dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -596,6 +722,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
 
                 android:paddingBottom="10dp"
@@ -604,13 +736,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="quantity"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/price5"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -622,6 +754,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
 
                 android:paddingBottom="10dp"
@@ -630,13 +768,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="price"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/date5"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -648,21 +786,29 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="date"
 
+                android:clickable="false"
+                android:focusable="false"
+                android:inputType="date"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="date"
                 android:textAlignment="center"
                 android:textSize="12dp" />
             <!-- sixth Item -->
             <EditText
                 android:id="@+id/item6"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -674,21 +820,27 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="item"
 
+                android:inputType="text"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="item"
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/quantity6"
-                android:layout_width="wrap_content"
+                android:layout_width="10dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -700,6 +852,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
 
                 android:paddingBottom="10dp"
@@ -708,13 +866,13 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="quantity"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/price6"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -726,6 +884,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
+                android:inputType="number"
+
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
                 android:padding="10dp"
 
                 android:paddingBottom="10dp"
@@ -734,13 +898,14 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="price"
+
                 android:textAlignment="center"
                 android:textSize="12dp" />
 
             <EditText
                 android:id="@+id/date6"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
+
                 android:layout_height="46dp"
                 android:layout_columnWeight="4"
                 android:layout_margin="10dp"
@@ -752,15 +917,23 @@
                 android:layout_marginTop="10dp"
                 android:layout_rowSpan="3"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:hint="date"
 
+                android:clickable="false"
+                android:focusable="false"
+                android:inputType="date"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+
+                android:padding="10dp"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:hint="date"
                 android:textAlignment="center"
                 android:textSize="12dp" />
             <!-- seventh Item -->
@@ -799,5 +972,15 @@
         android:textSize="18sp"
         android:textStyle="italic" />
 
+
+
+    <ProgressBar
+        android:id="@+id/upload_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:foregroundGravity="center_horizontal"
+        android:visibility="invisible" />
 
 </RelativeLayout>
