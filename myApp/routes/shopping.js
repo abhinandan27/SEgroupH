@@ -21,7 +21,7 @@ router.post('/addItem', function(req, res) {
     var list=req.body.list;
     var items=req.body.list;
 
-    list=JSON.parse(list);
+    //list=JSON.parse(list);
 
     var shopping_collection = db.get('shopping_collection');
     var query={"shopping.emailId":emailId};
