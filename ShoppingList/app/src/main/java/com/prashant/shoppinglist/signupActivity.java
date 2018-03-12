@@ -51,15 +51,14 @@ public class signupActivity extends AppCompatActivity {
         if(!firstPassword.equals(secondPassword))
         {
             Toast.makeText(getApplicationContext(),"Password does not match",Toast.LENGTH_LONG).show();
-            Intent i=new Intent(this,signupActivity.class);
-            startActivity(i);
+
         }
         else
         {
 
             //sending data to server
 
-            String url="http://192.168.0.15:3000/Users/addUser";
+            String url="http://"+Server.serverAddress+"/Users/addUser";
 
             //json object is not needed
             JSONObject obj=new JSONObject();
