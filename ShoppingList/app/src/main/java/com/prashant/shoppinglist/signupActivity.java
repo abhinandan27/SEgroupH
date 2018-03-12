@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -41,16 +42,30 @@ public class signupActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processRegisterRequest(name.getText().toString(),email.getText().toString(),firstPass.getText().toString(),confirmPassword.getText().toString());
+
+                if(performEmailValidation(email.getText().toString().trim()))
+                    processRegisterRequest(name.getText().toString(),email.getText().toString(),firstPass.getText().toString(),confirmPassword.getText().toString());
+                else Toast.makeText(getApplicationContext(),"Invalid Email",Toast.LENGTH_LONG).show();
+
             }
         });
     }
 
+    private boolean performEmailValidation(String email) {
+        String regexPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if(email.matches(regexPattern) && email.length()>0)
+            return true;
+        else return false;
+
+    }
+
     public void processRegisterRequest(final String name,final String email,final String firstPassword,String secondPassword)
     {
+        enablesignUpProgressBar();
         if(!firstPassword.equals(secondPassword))
         {
             Toast.makeText(getApplicationContext(),"Password does not match",Toast.LENGTH_LONG).show();
+            disablesignUpProgressBar();
 
         }
         else
@@ -78,11 +93,17 @@ public class signupActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                     if(response.equalsIgnoreCase("success"))
                     {Intent i=new Intent(getApplicationContext(),TabListActivity.class);
-                    startActivity(i);}
+                    startActivity(i);disablesignUpProgressBar();}
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Email already exists",Toast.LENGTH_LONG).show();
+                    }
+                    disablesignUpProgressBar();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    disablesignUpProgressBar();
                     Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
                     error.printStackTrace();
                 }
@@ -107,5 +128,18 @@ public class signupActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    public void enablesignUpProgressBar()
+    {
+        ProgressBar signUp=(ProgressBar)findViewById(R.id.sign_up_progress);
+        signUp.setVisibility(View.VISIBLE);
+    }
+
+
+    public void disablesignUpProgressBar()
+    {
+        ProgressBar signUp=(ProgressBar)findViewById(R.id.sign_up_progress);
+        signUp.setVisibility(View.INVISIBLE);
     }
 }
