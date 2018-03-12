@@ -54,4 +54,26 @@ and install android studio.
 #### Flow of adding items on the server side
 ![alt text](https://github.com/abhinandan27/SEgroupH/blob/master/Server1.jpg)
 
+#### Chits
+- XKQ
+- QLI
+- XIO
+- HLL
+- BSH
+- YFD
+- XGY
+- HVE
+- OBO
+- QZW
+- RHQ
+- BQU
+- MXI
+- DGP
+- LGS
+- JBT
+- WJL
+- YDK
+- MIH
+- NPB
+
  
