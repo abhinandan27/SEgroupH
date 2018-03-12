@@ -316,20 +316,109 @@ exports.updateItem = function(emailId,item,dateString,workload,number_of_people,
     {
         if(results.length>0)
         {
-            console.log("Net found")
-            var net = new brain.NeuralNetwork({
-              activation: 'sigmoid', // activation function
-              hiddenLayers: [4],
-              learningRate: 0.6 // global learning rate, useful when training using streams
-            });
-            //console.log("Hello"+results[0].netObject.net)
-            net.fromJSON(results[0].netObject.net);
-            var output=net.run([0, 1, 0, 0, 1, 0 ]); 
-            console.log("OP: "+output);
+            var frequency_collection=db.get('frequency_collection');
+            var query1={"users.emailId":emailId};
+            frequency_collection.find(query1, {},function(e,results1)
+            {
+                if(results1.length>0)
+                {
+                    //console.log("User found in ANalysis service: ",item);
+                    var datesArray=null;
+                    for(var i=0;i<results1[0].users.items.length;i++)
+                    {
+                        if(results1[0].users.items[i].item==item)
+                            datesArray=results1[0].users.items[i].dates;
+                    }
             
-            if(output!="NaN")
-                EndDateService.update(emailId,item,datelib.addDays(date, output));
-            AnalysisService.updateNN(emailId,item,dateString,workload,number_of_people,season,week_of_month,holidays);
+                    minArray=[]
+                    maxArray=[]
+                    for(var i=0;i<6;i++)
+                    {
+                        var min=0;
+                        var max=0;
+
+                        for(var j=0;j<datesArray.length;j++)
+                        {
+                            var element=datesArray[j];
+                            if(i==0)
+                            {
+                                if(element.workload<min)
+                                    min=element.workload
+                                if(element.workload>max)
+                                    max=element.workload
+                            }
+                            if(i==1)
+                            {
+                                if(element.number_of_people<min)
+                                    min=element.number_of_people
+                                if(element.number_of_people>max)
+                                    max=element.number_of_people
+                            }
+                            if(i==2)
+                            {
+                                if(element.season<min)
+                                    min=element.season
+                                if(element.season>max)
+                                    max=element.season
+                            }
+                            if(i==3)
+                            {
+                                if(element.week_of_month<min)
+                                    min=element.week_of_month
+                                if(element.week_of_month>max)
+                                    max=element.week_of_month
+                            }
+                            if(i==4)
+                            {
+                                if(element.holidays<min)
+                                    min=element.holidays
+                                if(element.holidays>max)
+                                    max=element.holidays
+                            }
+                            if(i==5)
+                            {
+                                if(element.frequency<min)
+                                    min=element.frequency
+                                if(element.frequency>max)
+                                    max=element.frequency
+                            }
+                        }
+
+                        minArray.push(min);
+                        maxArray.push(max);
+                    }
+
+                    var inputRow=[]
+                    inputRow.push((workload-minArray[0])/(maxArray[0]-minArray[0]));
+                    inputRow.push((number_of_people-minArray[1])/(maxArray[1]-minArray[1]));
+                    inputRow.push((season-minArray[2])/(maxArray[2]-minArray[2]));
+                    inputRow.push((week_of_month-minArray[3])/(maxArray[3]-minArray[3]));
+                    inputRow.push((holidays-minArray[4])/(maxArray[4]-minArray[4]));
+
+
+                    console.log("Net found")
+                    var net = new brain.NeuralNetwork({
+                      activation: 'sigmoid', // activation function
+                      hiddenLayers: [4],
+                      learningRate: 0.6 // global learning rate, useful when training using streams
+                    });
+                    //console.log("Hello"+results[0].netObject.net)
+                    net.fromJSON(results[0].netObject.net);
+                    var output=net.run(inputRow); 
+                    output=minArray[5]+(maxArray[5]*output);
+                    console.log("OP: "+output);
+                    
+                    if(output!="NaN")
+                        EndDateService.update(emailId,item,datelib.addDays(date, output));
+                    AnalysisService.updateNN(emailId,item,dateString,workload,number_of_people,season,week_of_month,holidays);
+
+                }
+                else
+                {
+                    console.log("No net found")
+                    AnalysisService.updateNN(emailId,item,dateString,workload,number_of_people,season,week_of_month,holidays);
+                }
+            });            
         }
         else
         {
