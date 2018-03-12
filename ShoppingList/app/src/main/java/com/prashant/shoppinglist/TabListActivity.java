@@ -123,8 +123,10 @@ public class TabListActivity extends AppCompatActivity {
                 disableListProgressBar();
                 if(tab.getText().equals("Smart List"))
                 {
-                    enableListProgressBar();
-                    setDefaultTabWithSmartList();}
+                   // enableListProgressBar();
+                    //setDefaultTabWithSmartList();
+                    //
+                    }
                 else
                 {
                     /*
@@ -371,7 +373,7 @@ public class TabListActivity extends AppCompatActivity {
         String parsedDate=sdf.format(cal.getTime());
 
         final String url="http://"+Server.serverAddress+"/Shopping/getList?emailId="+user+"date="+parsedDate;
-        Toast.makeText(getApplicationContext(),url,Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),url,Toast.LENGTH_LONG).show();
 
         StringRequest req=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
