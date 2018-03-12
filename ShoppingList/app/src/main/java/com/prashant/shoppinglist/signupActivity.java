@@ -75,8 +75,10 @@ public class signupActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-
+                    //Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                    if(response.equalsIgnoreCase("success"))
+                    {Intent i=new Intent(getApplicationContext(),TabListActivity.class);
+                    startActivity(i);}
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -102,8 +104,7 @@ public class signupActivity extends AppCompatActivity {
           //finished sending data
 
             //if response is true send to main activity page
-            Intent i=new Intent(this,TabListActivity.class);
-            startActivity(i);
+
 
         }
     }

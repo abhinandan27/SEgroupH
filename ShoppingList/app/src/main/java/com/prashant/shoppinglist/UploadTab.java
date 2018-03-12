@@ -304,7 +304,7 @@ public class UploadTab extends Fragment {
 
 
 
-        //Toast.makeText(getContext(),tempDate,Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),parsedDate,Toast.LENGTH_LONG).show();
         if(list.size()!=0)
         {
 
@@ -363,20 +363,6 @@ public class UploadTab extends Fragment {
                     Map<String,String> params=new HashMap<>();
                     Bundle b=getActivity().getIntent().getExtras();
 
-
-
-
-
-                    //getting a date
-
-
-                    //Calendar cal=Calendar.getInstance();
-
-                   // cal.set(Integer.parseInt(arr[2]),Integer.parseInt(arr[0]),Integer.parseInt(arr[1]));
-
-
-
-                    //Toast.makeText(getContext(),tempDate,Toast.LENGTH_LONG).show();
 
 
                     params.put("emailId",b.getString("emailId"));
