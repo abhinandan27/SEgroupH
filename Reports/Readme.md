@@ -1,7 +1,8 @@
 1. The final report is smart_shopping _list.pdf
 
 2. The responses of the evaluation are in the Evaluation.xls (contains chit numbers)
-  Chits
+
+  Chits:
  - XKQ
  - QLI
  - XIO
