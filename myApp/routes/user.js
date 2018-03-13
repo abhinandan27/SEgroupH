@@ -29,7 +29,7 @@ router.post('/addUser', function(req, res) {
                 }
                 else {
                     var userData = result;
-                    res.status(201).send(userData);
+                    res.status(201).send("Success");
                 }
             });
         }
