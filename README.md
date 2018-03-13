@@ -31,19 +31,18 @@ https://docs.mongodb.com/manual/reference/mongo-shell/
 #### Running the server
 Once you are done with NodeJs and MongoDB installation, download a our code repository from https://github.com/abhinandan27/SEgroupH
 -	Go to myApp and open command prompt in the same directory.
--	There are several dependencies like Express.js and brain.js which we need to install before we run our server. All those dependencies are mentioned in package.json file in myApp directory. To install those dependencies, run a command npm init
-This will install all the dependencies.
--	Run command npm start
--	Now we are done with server installation
+-	There are several dependencies like Express.js and brain.js which we need to install before we run our server. All those dependencies are mentioned in package.json file in myApp directory. To install those dependencies, run a command: npm init
+-	Run command: npm start
+-	Now we are done with server installation and it is running on port 3000
 
 #### Running the application:
 To run this application, download android studio from https://developer.android.com/studio/index.html
 and install android studio.
 -	Open android studio and go to File->Open project
--	Choose a directory where you Smart list exists.
+-	Choose a directory where your Smart list project exists.
 -	Once you open a project dependencies will be synced
 -	Open Server.java file as shown below and change the server address.
--	Once server address is change, install application on your mobile and use it.
+-	Once server address is changed, install application on your mobile and use it.
 
 #### Flow of Application:
 ![alt text](https://github.com/abhinandan27/SEgroupH/blob/master/Android.jpg)
