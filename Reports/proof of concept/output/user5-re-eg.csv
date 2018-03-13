@@ -1,0 +1,4 @@
+workload,week,people,season,holidays,output,data$product,predicted.nn.values$net.result
+0,0.999966668,0,0,0,7,eggs,6
+0.999950002,0,0,0,0,8,eggs,8
+0.999950002,0.333322223,0,0,0,8,eggs,8

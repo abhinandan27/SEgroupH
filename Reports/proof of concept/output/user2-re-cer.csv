@@ -1,0 +1,4 @@
+"","workload","week","people","season","holidays","output","data$product","predicted.nn.values$net.result"
+"1",0.499975001249937,0,0,0.999900009999,0.999900009999,14,"cereals",15
+"4",0.999950002499875,0.33332222259258,0,0,0,11,"cereals",10
+"6",0,0.999966667777741,0,0,0,7,"cereals",5
