@@ -52,6 +52,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,11 +60,13 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TabListActivity extends AppCompatActivity {
@@ -120,8 +123,10 @@ public class TabListActivity extends AppCompatActivity {
                 disableListProgressBar();
                 if(tab.getText().equals("Smart List"))
                 {
-                    enableListProgressBar();
-                    setDefaultTabWithSmartList();}
+                   // enableListProgressBar();
+                    //setDefaultTabWithSmartList();
+                    //
+                    }
                 else
                 {
                     /*
@@ -361,9 +366,14 @@ public class TabListActivity extends AppCompatActivity {
         //get ietms from from server
         Bundle b=getIntent().getExtras();
         String user=b.getString("emailId");
-        String nextDate="20180712";
-        final String url="http://"+Server.serverAddress+"/Shopping/getList?emailId="+user+"date="+nextDate;
 
+        Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.DATE,7);
+        SimpleDateFormat sdf=new SimpleDateFormat("YYYYMMdd");
+        String parsedDate=sdf.format(cal.getTime());
+
+        final String url="http://"+Server.serverAddress+"/Shopping/getList?emailId="+user+"date="+parsedDate;
+       // Toast.makeText(getApplicationContext(),url,Toast.LENGTH_LONG).show();
 
         StringRequest req=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
@@ -413,24 +423,15 @@ public class TabListActivity extends AppCompatActivity {
     public void setItems(String response)
     {
         //parse response and get items
-        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+
         //ArrayList<String> temp=new Gson().fromJson(response,ArrayList.class);
-        JSONArray array;
-        try {
-             array=new JSONArray(response);
+        Gson json=new Gson();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
+        Type type= new TypeToken<List<String>>(){}.getType();
         ArrayList<String> data=new ArrayList<String>();
-        data.add("Banana");
-        data.add("Carrots");
-        data.add("Ice cream");
-        data.add("Chicken");
-        data.add("Salt");
-        data.add("Ginger");
+        data=json.fromJson(response,type);
+        //Toast.makeText(getApplicationContext(),data.toString(),Toast.LENGTH_LONG).show();
 
         String items[]=new String[data.size()];
         int index=0;
